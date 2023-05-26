@@ -23,9 +23,7 @@ function clearLibrary() {
 function displayLibrary() {
   const content = document.getElementById('content');
   const book = [...myLibrary];
-  // eslint-disable-next-line no-restricted-syntax
   for (let i = 0; i < myLibrary.length; i++) {
-    console.log(book[i]);
     const card = document.createElement('div');
     card.classList.add('book');
     card.setAttribute('data-index', i);
@@ -209,9 +207,7 @@ function addBookToLibrary() {
   const read = card.querySelector('.book-read > input');
 
   const newBook = new Book(title.value, author.value, pages.value, read.checked);
-  console.log('newBook', newBook);
   myLibrary.push(newBook);
-  console.log('current Library', myLibrary);
   updateLibrary();
 }
 
@@ -226,11 +222,5 @@ const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 295, true);
 const LoTR1 = new Book('The Fellowship of the Ring', 'J.R.R Tolkien', 423, false);
 myLibrary.push(theHobbit);
 myLibrary.push(LoTR1);
-
-// const alertButton = document.querySelector('button.alert');
-// alertButton.addEventListener('mousedown', () => alert('Hello world!'));
-
-// const updateButton = document.querySelector('button.update');
-// updateButton.addEventListener('click', () => updateLibrary());
 
 updateLibrary();
