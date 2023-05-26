@@ -8,11 +8,9 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-Book.prototype.info = function () {
-  return `${this.title} by ${this.author}, ${this.pages} pages, ${
-    this.read ? 'has read' : 'not read yet'
-  }`;
-};
+Book.prototype.info = () => `${this.title} by ${this.author}, ${this.pages} pages, ${
+  this.read ? 'has read' : 'not read yet'
+}`;
 
 function addBookToLibrary(newBook) {
   // do stuff here
@@ -99,12 +97,98 @@ function makeAddBookCard() {
 
   card.appendChild(addBtn);
   content.appendChild(card);
+
+  const addBook = document.getElementById('add-btn');
+  addBook.addEventListener('click', convertAddCardToForm);
 }
 
-function updateLibrary(myLibrary) {
+function updateLibrary() {
   clearLibrary();
   displayLibrary(myLibrary);
   makeAddBookCard();
+}
+
+function convertAddCardToForm() {
+  const card = this.parentElement;
+  card.classList.remove('add-book');
+  card.classList.add('new-form');
+  this.remove();
+
+  const title = document.createElement('div');
+  title.classList.add('book-title');
+  const titleHeader = document.createElement('h2');
+  titleHeader.textContent = 'Title:';
+  const titleText = document.createElement('input');
+
+  title.appendChild(titleHeader);
+  title.appendChild(titleText);
+
+  const author = document.createElement('div');
+  author.classList.add('book-author');
+  const authorHeader = document.createElement('h2');
+  authorHeader.textContent = 'Author:';
+  const authorText = document.createElement('input');
+
+  author.appendChild(authorHeader);
+  author.appendChild(authorText);
+
+  const pages = document.createElement('div');
+  pages.classList.add('book-pages');
+  const pagesHeader = document.createElement('h2');
+  pagesHeader.textContent = 'Pages:';
+  const pagesText = document.createElement('input');
+
+  pages.appendChild(pagesHeader);
+  pages.appendChild(pagesText);
+
+  const read = document.createElement('div');
+  read.classList.add('book-read');
+  const readHeader = document.createElement('h2');
+  readHeader.textContent = 'Read';
+  const readCheck = document.createElement('input');
+  readCheck.setAttribute('type', 'checkbox');
+
+  read.appendChild(readHeader);
+  read.appendChild(readCheck);
+
+  const btnDiv = document.createElement('div');
+  btnDiv.classList.add('new-form-btn');
+  const accBtn = document.createElement('button');
+  accBtn.id = 'acc-btn';
+  accBtn.textContent = 'Accept';
+  const canBtn = document.createElement('button');
+  canBtn.id = 'can-btn';
+  canBtn.textContent = 'Cancel';
+  btnDiv.appendChild(accBtn);
+  btnDiv.appendChild(canBtn);
+
+  card.appendChild(title);
+  card.appendChild(author);
+  card.appendChild(pages);
+  card.appendChild(read);
+  card.appendChild(btnDiv);
+
+  canBtn.addEventListener('click', convertFormToAddCard);
+}
+
+function convertFormToAddCard() {
+  const card = this.parentElement.parentElement;
+
+  while (card.hasChildNodes()) {
+    card.removeChild(card.lastChild);
+  }
+  card.classList.remove('new-form');
+  card.classList.add('add-book');
+
+  const addBtn = document.createElement('button');
+  addBtn.id = 'add-btn';
+  addBtn.innerHTML = '<h2>Add book</h2>';
+
+  card.appendChild(addBtn);
+  content.appendChild(card);
+
+  const addBook = document.getElementById('add-btn');
+  addBook.addEventListener('click', convertAddCardToForm);
 }
 
 const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 295, true);
@@ -116,7 +200,4 @@ const alertButton = document.querySelector('button.alert');
 alertButton.addEventListener('mousedown', () => alert('Hello world!'));
 
 const updateButton = document.querySelector('button.update');
-updateButton.addEventListener('click', () => updateLibrary(myLibrary));
-
-const addBook = document.getElementById('add-btn');
-addBook.addEventListener();
+updateButton.addEventListener('click', () => updateLibrary());
