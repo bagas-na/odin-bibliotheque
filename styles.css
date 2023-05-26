@@ -1,12 +1,138 @@
-* {
+/* * {
     border: 1px solid black;
+} */
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+body {
+    background-color: #EFEFEF;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 min(1.5vw, 20px);
 }
 
 h1 {
     text-align: center;
 }
 
-body {
-    max-width: 1042px;
-    margin: 0 auto;
+.info {
+    padding: 1em 2em;
+    background-color: #FFDEB4;
+    box-shadow: inset 0px 0px 8px 0px rgba(100, 100, 100, 0.3);
 }
+
+main {
+    min-height: 600px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 2px 5px 2px rgb(128,128,128, 0.2);
+}
+
+.content {
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-rows: 300px 300px;
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-auto-rows: 300px;
+    gap: min(2vw, 24px);
+}
+
+.book {
+    padding: 3% 10%;
+    border-radius: 15px;
+    background-color: #FDF7C3;
+    box-shadow: 0px 2px 5px 2px rgb(128,128,128, 0.2);   
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.book-title,
+.book-author,
+.book-pages {
+    height: 65px;
+}
+
+.book > .empty {
+    height: 35px;
+}
+
+.book.new-form {
+    padding: 3% 10%;
+    background-color: #FFDEB4;
+}
+
+.new-form-btn > button {
+    width: 70px;
+    height: 25px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+
+}
+
+#acc-btn {
+    background-color: #B2A4FF;
+    box-shadow: 1px 2px 3px 0px rgb(128,128,128, 0.5),
+                inset -1px -1px 3px 0px rgb(128,128,128, 0.5);
+}
+#acc-btn:hover {
+    box-shadow: 1px 1px 3px 0px rgb(128,128,128, 0.5);
+    transform: translate(0px, 1px);
+}
+#acc-btn:active {
+    box-shadow: inset 1px 2px 3px 0px rgb(128,128,128, 0.5);
+}
+
+#can-btn {
+    background-color: #FFB4B4;
+    box-shadow: 1px 2px 3px 0px rgb(128,128,128, 0.5),
+                inset -1px -1px 3px 0px rgb(128,128,128, 0.5);
+}
+#can-btn:hover {
+    box-shadow: 1px 1px 3px 0px rgb(128,128,128, 0.5);
+    transform: translate(0px, 1px);
+}
+#can-btn:active {
+    box-shadow: inset 1px 2px 3px 0px rgb(128,128,128, 0.5);
+}
+
+.book.add-book {
+    padding: 3% 20%;
+    background-color: rgb(128,128,128, 0.1);
+}
+
+#add-btn {
+    margin; 0 auto;
+    border: none;
+    border-radius: 10px;
+    background-color: #B2A4FF;
+    box-shadow: 1px 2px 3px 0px rgb(128,128,128, 0.5),
+                inset -1px -2px 3px 0px rgb(128,128,128, 0.5);
+}
+#add-btn:hover {
+    box-shadow: 1px 1px 3px 0px rgb(128,128,128, 0.5);
+    transform: translate(0px, 1px);
+}
+#add-btn:active {
+    box-shadow: inset 1px 2px 3px 0px rgb(128,128,128, 0.5);
+}
+
+
+.book h2 {
+    margin: 0.5em;
+    font-size: 1.2em;
+}
+
+.book p {
+    margin: 0em;
+}
+
+.book-read h2 {
+    display: inline
+}
+

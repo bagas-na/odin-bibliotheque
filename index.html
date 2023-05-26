@@ -4,16 +4,71 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
+    <script src="./script.js" defer></script>
     <title>Bibliothèque</title>
 </head>
 <body>
     <header>
         <h1 class="title">Bibliothèque</h1>
-        <div class="info">This is a simple book tracking app where you can add and remove books into a library. You can also change the book status (read/unread), see basic information about your books and keep your progress in each book</div>
+        <div class="info">This is a simple book tracking app where you can add and remove books into a library. You can also change the book status (<em>read/unread</em>), see basic information about your books and keep your progress in each book</div>
+
     </header>
     <main>
-
+        <div class="content" id="content">
+            <div class="book">
+                <div class="book-title">
+                    <h2>Title:</h2>
+                    <p>qwaQ</p>
+                </div>
+                <div class="book-author">
+                    <h2>Author:</h2>
+                    <p>qwaQ</p>
+                </div>
+                <div class="book-pages">
+                    <h2>Pages:</h2>
+                    <p>123</p>
+                </div>
+                <div class="book-read">
+                    <h2>Read</h2>
+                    <input type="checkbox">
+                </div>
+                <div class="empty"></div>
+            </div>
+            <div class="book new-form">
+                <div class="book-title">
+                    <h2>Title:</h2>
+                    <input type="text"></input>
+                </div>
+                <div class="book-author">
+                    <h2>Author:</h2>
+                    <input type="text"></input>
+                </div>
+                <div class="book-pages">
+                    <h2>Pages:</h2>
+                    <input type="number"></input>
+                </div>
+                <div class="book-read">
+                    <h2>Read</h2>
+                    <input type="checkbox">
+                </div>
+                <div class="new-form-btn">
+                    <button id="acc-btn">Accept</button>
+                    <button id="can-btn">Cancel</button>
+                </div>
+                </form>
+            </div>
+            <div class="book add-book">
+                <button id="add-btn"><h2>Add book</h2></button>
+            </div>
+            <div class="book add-book">
+                <button class="alert">Alert!</button>
+                <button class="update">Update!</button>
+            </div>
+        </div>
     </main>
     <footer>
 
