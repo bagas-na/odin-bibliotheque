@@ -12,36 +12,30 @@ Book.prototype.info = () => `${this.title} by ${this.author}, ${this.pages} page
   this.read ? 'has read' : 'not read yet'
 }`;
 
-function addBookToLibrary(newBook) {
-  // do stuff here
-  myLibrary.push(newBook);
-}
-
 function clearLibrary() {
   const content = document.getElementById('content');
-
-  console.log('Has child node:', content.hasChildNodes());
 
   while (content.hasChildNodes()) {
     content.removeChild(content.lastChild);
   }
 }
 
-function displayLibrary(myLibrary) {
+function displayLibrary() {
   const content = document.getElementById('content');
-  console.log(myLibrary);
+  const book = [...myLibrary];
   // eslint-disable-next-line no-restricted-syntax
-  for (const book of myLibrary) {
-    console.log(book);
+  for (let i = 0; i < myLibrary.length; i++) {
+    console.log(book[i]);
     const card = document.createElement('div');
     card.classList.add('book');
+    card.setAttribute('data-index', i);
 
     const title = document.createElement('div');
     title.classList.add('book-title');
     const titleHeader = document.createElement('h2');
     titleHeader.textContent = 'Title:';
     const titleText = document.createElement('p');
-    titleText.textContent = book.title;
+    titleText.textContent = book[i].title;
     title.appendChild(titleHeader);
     title.appendChild(titleText);
 
@@ -50,7 +44,7 @@ function displayLibrary(myLibrary) {
     const authorHeader = document.createElement('h2');
     authorHeader.textContent = 'Author:';
     const authorText = document.createElement('p');
-    authorText.textContent = book.author;
+    authorText.textContent = book[i].author;
     author.appendChild(authorHeader);
     author.appendChild(authorText);
 
@@ -59,7 +53,7 @@ function displayLibrary(myLibrary) {
     const pagesHeader = document.createElement('h2');
     pagesHeader.textContent = 'Pages:';
     const pagesText = document.createElement('p');
-    pagesText.textContent = book.pages;
+    pagesText.textContent = book[i].pages;
     pages.appendChild(pagesHeader);
     pages.appendChild(pagesText);
 
@@ -69,19 +63,23 @@ function displayLibrary(myLibrary) {
     readHeader.textContent = 'Read';
     const readCheck = document.createElement('input');
     readCheck.setAttribute('type', 'checkbox');
-    readCheck.checked = book.read;
+    readCheck.checked = book[i].read;
+    readCheck.setAttribute('disabled', '');
     read.appendChild(readHeader);
     read.appendChild(readCheck);
 
-    const empty = document.createElement('div');
-    empty.classList.add('empty');
+    const rmvBtn = document.createElement('button');
+    rmvBtn.classList.add('rmv-btn');
+    rmvBtn.textContent = 'Remove';
 
     card.appendChild(title);
     card.appendChild(author);
     card.appendChild(pages);
     card.appendChild(read);
-    card.appendChild(empty);
+    card.appendChild(rmvBtn);
     content.appendChild(card);
+
+    rmvBtn.addEventListener('click', removeBookFromLibrary);
   }
 }
 
@@ -104,7 +102,7 @@ function makeAddBookCard() {
 
 function updateLibrary() {
   clearLibrary();
-  displayLibrary(myLibrary);
+  displayLibrary();
   makeAddBookCard();
 }
 
@@ -119,7 +117,8 @@ function convertAddCardToForm() {
   const titleHeader = document.createElement('h2');
   titleHeader.textContent = 'Title:';
   const titleText = document.createElement('input');
-
+  titleText.setAttribute('type', 'text');
+  titleText.setAttribute('required', '');
   title.appendChild(titleHeader);
   title.appendChild(titleText);
 
@@ -128,7 +127,8 @@ function convertAddCardToForm() {
   const authorHeader = document.createElement('h2');
   authorHeader.textContent = 'Author:';
   const authorText = document.createElement('input');
-
+  authorText.setAttribute('type', 'text');
+  authorText.setAttribute('required', '');
   author.appendChild(authorHeader);
   author.appendChild(authorText);
 
@@ -137,7 +137,8 @@ function convertAddCardToForm() {
   const pagesHeader = document.createElement('h2');
   pagesHeader.textContent = 'Pages:';
   const pagesText = document.createElement('input');
-
+  pagesText.setAttribute('type', 'number');
+  pagesText.setAttribute('required', '');
   pages.appendChild(pagesHeader);
   pages.appendChild(pagesText);
 
@@ -155,25 +156,33 @@ function convertAddCardToForm() {
   btnDiv.classList.add('new-form-btn');
   const accBtn = document.createElement('button');
   accBtn.id = 'acc-btn';
+  accBtn.setAttribute('type', 'button');
   accBtn.textContent = 'Accept';
   const canBtn = document.createElement('button');
   canBtn.id = 'can-btn';
+  canBtn.setAttribute('type', 'button');
   canBtn.textContent = 'Cancel';
   btnDiv.appendChild(accBtn);
   btnDiv.appendChild(canBtn);
 
-  card.appendChild(title);
-  card.appendChild(author);
-  card.appendChild(pages);
-  card.appendChild(read);
-  card.appendChild(btnDiv);
+  const form = document.createElement('form');
+  form.setAttribute('action', '');
+  form.id = 'new-book-form';
 
+  form.appendChild(title);
+  form.appendChild(author);
+  form.appendChild(pages);
+  form.appendChild(read);
+  form.appendChild(btnDiv);
+
+  card.appendChild(form);
+
+  accBtn.addEventListener('click', addBookToLibrary);
   canBtn.addEventListener('click', convertFormToAddCard);
 }
 
 function convertFormToAddCard() {
-  const card = this.parentElement.parentElement;
-
+  const card = this.parentElement.parentElement.parentElement;
   while (card.hasChildNodes()) {
     card.removeChild(card.lastChild);
   }
@@ -191,13 +200,37 @@ function convertFormToAddCard() {
   addBook.addEventListener('click', convertAddCardToForm);
 }
 
+function addBookToLibrary() {
+  // do stuff here
+  const card = this.parentElement.parentElement.parentElement;
+  const title = card.querySelector('.book-title > input');
+  const author = card.querySelector('.book-author > input');
+  const pages = card.querySelector('.book-pages > input');
+  const read = card.querySelector('.book-read > input');
+
+  const newBook = new Book(title.value, author.value, pages.value, read.checked);
+  console.log('newBook', newBook);
+  myLibrary.push(newBook);
+  console.log('current Library', myLibrary);
+  updateLibrary();
+}
+
+function removeBookFromLibrary() {
+  const card = this.parentElement;
+  const index = card.getAttribute('data-index');
+  myLibrary.splice(index, 1); // deletes book at the book's index from myLibrary
+  updateLibrary();
+}
+
 const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 295, true);
 const LoTR1 = new Book('The Fellowship of the Ring', 'J.R.R Tolkien', 423, false);
-addBookToLibrary(theHobbit);
-addBookToLibrary(LoTR1);
+myLibrary.push(theHobbit);
+myLibrary.push(LoTR1);
 
-const alertButton = document.querySelector('button.alert');
-alertButton.addEventListener('mousedown', () => alert('Hello world!'));
+// const alertButton = document.querySelector('button.alert');
+// alertButton.addEventListener('mousedown', () => alert('Hello world!'));
 
-const updateButton = document.querySelector('button.update');
-updateButton.addEventListener('click', () => updateLibrary());
+// const updateButton = document.querySelector('button.update');
+// updateButton.addEventListener('click', () => updateLibrary());
+
+updateLibrary();

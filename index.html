@@ -34,40 +34,41 @@
                 </div>
                 <div class="book-read">
                     <h2>Read</h2>
-                    <input type="checkbox">
+                    <input type="checkbox" disabled>
                 </div>
-                <div class="empty"></div>
+                <button class="rmv-btn">Remove</button>
             </div>
             <div class="book new-form">
-                <div class="book-title">
-                    <h2>Title:</h2>
-                    <input type="text"></input>
-                </div>
-                <div class="book-author">
-                    <h2>Author:</h2>
-                    <input type="text"></input>
-                </div>
-                <div class="book-pages">
-                    <h2>Pages:</h2>
-                    <input type="number"></input>
-                </div>
-                <div class="book-read">
-                    <h2>Read</h2>
-                    <input type="checkbox">
-                </div>
-                <div class="new-form-btn">
-                    <button id="acc-btn">Accept</button>
-                    <button id="can-btn">Cancel</button>
-                </div>
+                <form action="" id="new-book-form">
+                    <div class="book-title">
+                        <h2>Title:</h2>
+                        <input type="text" required></input>
+                    </div>
+                    <div class="book-author">
+                        <h2>Author:</h2>
+                        <input type="text" required></input>
+                    </div>
+                    <div class="book-pages">
+                        <h2>Pages:</h2>
+                        <input type="number" required></input>
+                    </div>
+                    <div class="book-read">
+                        <h2>Read</h2>
+                        <input type="checkbox">
+                    </div>
+                    <div class="new-form-btn">
+                        <button id="acc-btn" type="button">Accept</button>
+                        <button id="can-btn" type="button">Cancel</button>
+                    </div>
                 </form>
             </div>
             <div class="book add-book">
                 <button id="add-btn"><h2>Add book</h2></button>
             </div>
-            <div class="book add-book">
+            <!-- <div class="book add-book">
                 <button class="alert">Alert!</button>
                 <button class="update">Update!</button>
-            </div>
+            </div> -->
         </div>
     </main>
     <footer>
