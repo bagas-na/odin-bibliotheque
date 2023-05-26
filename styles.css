@@ -62,7 +62,6 @@ main {
 }
 
 .book.new-form {
-    padding: 3% 10%;
     background-color: #FFDEB4;
 }
 
@@ -133,6 +132,6 @@ main {
 }
 
 .book-read h2 {
-    display: inline
+    display: inline;
 }
 

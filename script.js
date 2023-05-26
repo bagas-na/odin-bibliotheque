@@ -19,10 +19,6 @@ function addBookToLibrary(newBook) {
   myLibrary.push(newBook);
 }
 
-function inputBook() {
-  const div = document.createElement('div');
-}
-
 function clearLibrary() {
   const content = document.getElementById('content');
 
@@ -79,17 +75,36 @@ function displayLibrary(myLibrary) {
     read.appendChild(readHeader);
     read.appendChild(readCheck);
 
+    const empty = document.createElement('div');
+    empty.classList.add('empty');
+
     card.appendChild(title);
     card.appendChild(author);
     card.appendChild(pages);
     card.appendChild(read);
+    card.appendChild(empty);
     content.appendChild(card);
   }
+}
+
+function makeAddBookCard() {
+  const content = document.getElementById('content');
+  const card = document.createElement('div');
+  card.classList.add('book');
+  card.classList.add('add-book');
+
+  const addBtn = document.createElement('button');
+  addBtn.id = 'add-btn';
+  addBtn.innerHTML = '<h2>Add book</h2>';
+
+  card.appendChild(addBtn);
+  content.appendChild(card);
 }
 
 function updateLibrary(myLibrary) {
   clearLibrary();
   displayLibrary(myLibrary);
+  makeAddBookCard();
 }
 
 const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 295, true);
@@ -101,4 +116,7 @@ const alertButton = document.querySelector('button.alert');
 alertButton.addEventListener('mousedown', () => alert('Hello world!'));
 
 const updateButton = document.querySelector('button.update');
-updateButton.addEventListener('mouseup', () => updateLibrary(myLibrary));
+updateButton.addEventListener('click', () => updateLibrary(myLibrary));
+
+const addBook = document.getElementById('add-btn');
+addBook.addEventListener();
